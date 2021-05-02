@@ -1,0 +1,90 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+body {
+    background-image: url("https://images.axios.com/q6leDViEsP3K2II4pu_B5RewLaU=/0x0:1920x1080/1920x1080/2020/07/23/1595546794823.gif");
+    background-color: #000000;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto;
+    position: relative;
+    background-position-y:50px;
+    /*background-color: black;*/
+    color: #e7e7e7;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 25px;
+}
+
+.smallAvatar {
+    margin-top: -6px;
+    margin-right: 4px;
+    width: 36px;
+    height: 36px;
+    border-radius: 18px;
+    float: left;
+}
+
+.mediumAvatar {
+    margin-right: 8px;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    float: left;
+}
+
+.smallGlyphicon {
+    transform: scale(0.6);
+    margin-top: -3px;
+}
+
+.nameDate {
+    font-size: 14px;
+    margin: 0px;
+}
+
+.menuTitle {
+}
+
+    .menuTitle:hover {
+        color: white;
+    }
+
+.UploadedImage {
+    max-width: 100%;
+}
+
+textarea {
+    width: 100% !important;
+    height: 200px;
+}
+
+.applicationName {
+    color: #e7e7e7 !important;
+    font-weight: bold;
+}

@@ -1,0 +1,186 @@
+﻿@helper EnumToRadioButtonGroup(string name, object enumObj, bool create = false)
+{
+    int index = 0;
+    foreach (var enumItem in Enum.GetValues(enumObj.GetType()))
+    {
+        string id = name + "_" + index.ToString();
+
+        if (!create && index == (int)enumObj)
+        {
+            <input type="radio" name="@name" class="@name" id="@id" value="@index" checked />
+        }
+        else
+        {
+            <input type="radio" name="@name" class="@name" id="@id" value="@index" />
+        }
+        <label for="@id" class="control-label">@enumItem.ToString()</label>
+        index++;
+    }
+    <br />
+}
+@helper ImageUploader(int id, string imageSrc, string controlId = "ImageControl", string waitingImage = "", string TooltipMessage = "", string ToolTipPlacement = "bottom")
+{
+    var Url = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
+    imageSrc = Url.Content(imageSrc);
+    controlId = Url.Content(controlId);
+    waitingImage = Url.Content(waitingImage);
+    <fieldset>
+        <div class='imageUploader' id='@id' controlId='@controlId' imageSrc='@imageSrc' waitingImage='@waitingImage'
+             data-toggle="tooltip"
+             data-placement="@ToolTipPlacement"
+             title="@TooltipMessage"> </div>
+    </fieldset>
+}
+
+@helper AvatarProfilLink(MoviesManager.Models.UserView user)
+{
+    var Url = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
+    var avatarUrl = Url.Content(user.GetAvatarURL());
+    var linkUrl = Url.Action("Profil", "Users");
+    <a href="@linkUrl" data-toogle="tooltip" title="Modifier le profil">
+        <div class="smallAvatar"
+             style="background: url(@avatarUrl) no-repeat center center; background-size: cover;"></div>
+        <span class="menuTitle">&nbsp;@user.FullName</span>
+    </a>
+}
+
+@helper AvatarUser(MoviesManager.Models.UserView user)
+{
+    var Url = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
+    var avatarUrl = Url.Content(user.GetAvatarURL());
+    <div>
+        <div class="smallAvatar"
+             style="background: url(@avatarUrl) no-repeat center center; background-size: cover; float:left;"></div>
+        <div class="ellipsis" style="float:none;">&nbsp;@user.FullName</div>
+    </div>
+    <br />
+}
+
+@helper When(DateTime date)
+{
+    TimeSpan span = DateTime.Now.Subtract(date);
+    if (span.Days > 0)
+    {
+        <div style="float:left">@date.ToLongDateString() - </div>
+        <div class="glyphicon glyphicon-time smallGlyphicon" title="@date.ToShortTimeString()" data-placement="right"></div>
+    }
+    else
+    {
+        if (span.Hours > 1)
+        {
+            <span>@span.Hours heures</span>
+        }
+        else
+        {
+            if (span.Minutes > 1)
+            {
+                <span>@span.Minutes minutes</span>
+            }
+            else
+            {
+                <span>à l'instant</span>
+            }
+        }
+    }
+}
+
+@helper CommentCreator(MoviesManager.Models.UserView user, DateTime date)
+{
+    var Url = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
+    var avatarUrl = Url.Content(user.GetAvatarURL());
+    <div style="margin-top:-6px;">
+        <div class="mediumAvatar"
+             style="background: url(@avatarUrl) no-repeat center center; background-size: cover; float:left;">
+        </div>
+        <div class="nameDate">
+            <div class="ellipsis">todo</div>
+            <div class="ellipsis">@Helper.When(date)</div>
+        </div>
+    </div>
+    <br />
+}
+
+@helper GlyphiconCmd(string glyphiconClass, string TooltipMessage, string ToolTipPlacement = "bottom")
+{
+    var Url = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
+    <div style="cursor:pointer">
+        <span class="glyphicon glyphiconStyle @glyphiconClass"
+              title="@TooltipMessage"
+              data-placement="@ToolTipPlacement">
+        </span>
+    </div>
+}
+@helper GlyphiconAction(string Action, string glyphiconClass, string TooltipMessage, string ToolTipPlacement = "bottom")
+{
+    var Url = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
+    <a href="@Url.Action(Action)">
+        <span class="glyphicon glyphiconStyle @glyphiconClass"
+              title="@TooltipMessage"
+              data-placement="@ToolTipPlacement">
+        </span>
+    </a>
+}
+@helper GlyphiconActionAndParams(string Action, string parameters, string glyphiconClass, string TooltipMessage, string ToolTipPlacement = "bottom")
+{
+    var Url = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
+    string actionUrl = Url.Action(Action) + parameters;
+    <a href="@actionUrl">
+        <span class="glyphicon glyphiconStyle @glyphiconClass"
+              title="@TooltipMessage"
+              data-placement="@ToolTipPlacement">
+        </span>
+    </a>
+}
+@helper GlyphiconConfirmAction(string Action, string glyphiconClass, string TooltipMessage, string ToolTipPlacement = "bottom")
+{
+    var Url = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
+    <div onclick='confirm("@TooltipMessage","@Url.Action(Action)")'>
+        <span class="glyphicon glyphiconStyle @glyphiconClass"
+              title="@TooltipMessage"
+              data-placement="@ToolTipPlacement">
+        </span>
+    </div>
+}
+@helper GlyphiconAjaxAction(string Action, string glyphiconClass, string TooltipMessage, string ToolTipPlacement = "bottom")
+{
+    var Url = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
+    <div onclick='ajaxActionCall("@Url.Action(Action)")'>
+        <span class="glyphicon glyphiconStyle @glyphiconClass"
+              title="@TooltipMessage"
+              data-placement="@ToolTipPlacement">
+        </span>
+    </div>
+}
+@helper GlyphiconAjaxControllerAction(string controller, string Action, string glyphiconClass, string TooltipMessage, string ToolTipPlacement = "bottom")
+{
+    var Url = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
+    <div onclick='ajaxActionCall("@Url.Action(Action, controller)")'>
+        <div style="margin-top:12px;margin-left:12px">
+            <span class="glyphicon glyphiconStyle @glyphiconClass"
+                  title="@TooltipMessage"
+                  data-placement="@ToolTipPlacement">
+            </span>
+        </div>
+    </div>
+}
+@helper GlyphiconControllerAction(string controller, string Action, string glyphiconClass, string TooltipMessage, string ToolTipPlacement = "bottom")
+{
+    var Url = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
+    <a href="@Url.Action(Action, controller)">
+        <span class="glyphicon glyphiconStyle @glyphiconClass"
+              title="@TooltipMessage"
+              data-placement="@ToolTipPlacement">
+        </span>
+    </a>
+}
+
+@helper DataList(List<string> data, string id)
+{
+    <input list="@id" name="@id" class="form-control custom-select custom-select-sm" data-val="true" data-val-required="Requis" />
+    <datalist id="@id">
+        @foreach (string value in data)
+        {
+            <option value="@value" />
+        }
+    </datalist>
+}

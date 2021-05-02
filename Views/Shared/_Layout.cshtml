@@ -1,0 +1,62 @@
+﻿@{
+    MoviesManager.Models.UserView onlineUser = MoviesManager.Models.OnlineUsers.CurrentUser;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("MoviesManager", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @if (onlineUser != null)
+                    {
+                        <li style="color:lightgreen; font-weight:bold">
+                            @Helper.AvatarProfilLink(onlineUser)
+                        </li>
+
+                        <li>
+                            @Helper.GlyphiconControllerAction("Users", "Logout", "glyphicon-log-out", "Déconnexion")
+                        </li>
+                        <li>
+                            @Helper.GlyphiconControllerAction("Actors", "Index", "glyphicon glyphicon-user", "List actors")
+                        </li>
+                        <li>
+                            @Helper.GlyphiconControllerAction("Films", "Index", "glyphicon glyphicon-film", "List actors")
+                        </li>
+                    }
+
+                    <li>
+                        @Helper.GlyphiconControllerAction("Users", "About", "glyphicon-question-sign", "À propos...")
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
