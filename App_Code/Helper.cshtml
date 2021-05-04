@@ -184,3 +184,63 @@
         }
     </datalist>
 }
+
+
+@helper FlashButton(string Action, string Icon, string TooltipMessage, string ToolTipPlacement = "bottom")
+{
+    var Url = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
+    <a href="@Url.Action(Action)" class="noUnderLine">
+        <div class="@Icon flashButton" data-toggle="tooltip"
+             data-placement="@ToolTipPlacement"
+             title="@TooltipMessage"></div>
+    </a>
+}
+
+
+@helper FlashButton(string Action, string Controller, string Icon, string TooltipMessage, string ToolTipPlacement = "bottom")
+{
+    var Url = new System.Web.Mvc.UrlHelper(HttpContext.Current.Request.RequestContext);
+    <a href="@Url.Action(Action, Controller)" class="noUnderLine">
+        <div class="@Icon flashButton" data-toggle="tooltip"
+             data-placement="@ToolTipPlacement"
+             title="@TooltipMessage"></div>
+    </a>
+}
+
+@helper SelectionLists(List<MoviesManager.Models.ListItem> selectedItems, List<MoviesManager.Models.ListItem> items)
+{
+    <div class="selectionsGrid">
+        <div>
+            <select id='SelectedItems' name='SelectedItems' size='12' multiple class='form-control'>
+                @foreach (MoviesManager.Models.ListItem si in selectedItems)
+                {
+                    <option value='@si.Id'>@si.Text</option>
+                }
+            </select>
+        </div>
+        <div>
+            <div id="MoveLeft" class="iconLeft flashButton" data-toggle="tooltip" data-placement="top" title="Ajouter"></div>
+            <div id="MoveRight" class="iconRight flashButton" data-toggle="tooltip" data-placement="bottom" title="Retirer"></div>
+        </div>
+        <div>
+            <select id='UnselectedItems' size='12' multiple class='form-control'>
+                @foreach (MoviesManager.Models.ListItem ui in items)
+                {
+                    bool found = false;
+                    foreach (MoviesManager.Models.ListItem si in selectedItems)
+                    {
+                        if (si.Id == ui.Id)
+                        {
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found)
+                    {
+                        <option value='@ui.Id'>@ui.Text</option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+}

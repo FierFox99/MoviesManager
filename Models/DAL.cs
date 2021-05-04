@@ -45,6 +45,61 @@ namespace MoviesManager.Models
                 throw new Exception("Aucune ransaction en cours! Impossible de mettre à jour la base de ddonnées!");
         }
 
+        public static List<ListItem> FilmListItem(this Actor actor)
+        {
+            List<ListItem> filme = new List<ListItem>();
+            if(actor.Castings != null)
+            {
+                foreach(Casting casting in actor.Castings)
+                {
+                    filme.Add(new ListItem() { Id = casting.Film.Id, Text = casting.Film.Title });
+                }
+            }
+            return filme;
+        }
+
+        public static List<ListItem> FilmListItem(this DBEntities DB)
+        {
+            List<ListItem> films = new List<ListItem>();
+            if (DB.Castings != null)
+            {
+                foreach (Film film in DB.Films)
+                {
+                    films.Add(new ListItem() { Id = film.Id, Text = film.Title });
+                }
+            }
+            return films;
+        }
+
+
+        public static List<ListItem> ActorListItem(this Film film)
+        {
+            List<ListItem> actor = new List<ListItem>();
+
+            if(film.Castings!=null)
+            {
+                foreach(Casting casting in film.Castings)
+                {
+                    actor.Add(new ListItem() { Id = casting.Actor.Id, Text = casting.Actor.Name });
+                }
+            }
+            return actor;
+        }
+
+        public static List<ListItem> ActorListItem(this DBEntities DB)
+        {
+            List<ListItem> actors = new List<ListItem>();
+
+            if (DB.Actors != null)
+            {
+                foreach (Actor actor  in DB.Actors)
+                {
+                    actors.Add(new ListItem() { Id = actor.Id, Text = actor.Name });
+                }
+            }
+            return actors;
+        }
+
         public static DateTime PostsLastUpdate
         {
             get

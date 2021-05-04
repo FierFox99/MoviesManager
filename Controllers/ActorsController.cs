@@ -22,10 +22,12 @@ namespace MoviesManager.Controllers
         [AdminAccess]
         public ActionResult Create()
         {
+            ViewBag.SelectedActor = new List<ListItem>();
+            ViewBag.Actor = DB.ActorListItem();
             ViewBag.CountryNameList = DB.CountryNameList();
             return View(new ActorView());
         }
-        [AdminAccess]
+
         [HttpPost]
         public ActionResult Create(ActorView actorView)
         {

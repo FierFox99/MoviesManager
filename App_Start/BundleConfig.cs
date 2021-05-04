@@ -26,6 +26,8 @@ namespace MoviesManager
             bundles.Add(new ScriptBundle("~/bundles/partialRefresh").Include(
                         "~/Scripts/partialRefresh.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/selections").Include(
+                        "~/Scripts/selections.js"));
 
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
@@ -38,6 +40,8 @@ namespace MoviesManager
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                     "~/Content/bootstrap.css",
+                    "~/Content/flashButtons.css",
+                    "~/Content/selections.css",
                     "~/Content/site.css",
                     "~/Content/themes/base/jquery-ui.css",
                     "~/Content/themes/ui-darkness/jquery-ui.all.css",
